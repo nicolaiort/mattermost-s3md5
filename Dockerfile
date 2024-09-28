@@ -24,9 +24,12 @@ ENV PATH="/mattermost:${PATH}"
 ARG PUID=2000
 ARG PGID=2000
 
+# Workaround for https://github.com/docker/buildx/issues/314
+RUN rm /var/lib/dpkg/info/libc-bin.* && apt-get clean
+
 # # Install needed packages and indirect dependencies
-RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   ca-certificates \
   curl \
   mime-support \
