@@ -766,6 +766,7 @@ func s3PutOptions(encrypted bool, contentType string, uploadPartSize int64) s3.P
 	}
 	options.ContentType = contentType
 	options.PartSize = uint64(uploadPartSize)
+	options.SendContentMd5 = true
 
 	return options
 }
